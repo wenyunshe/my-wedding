@@ -1,13 +1,15 @@
 import { useState } from 'react'
+import { PrimeReactProvider } from 'primereact/api'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
-import './App.css'
+import { Button } from 'primereact/button'
+import "primereact/resources/themes/lara-light-cyan/theme.css";
 
 function App() {
   const [count, setCount] = useState(0)
 
   return (
-    <>
+    <PrimeReactProvider>
       <div>
         <a href="https://vite.dev" target="_blank">
           <img src={viteLogo} className="logo" alt="Vite logo" />
@@ -18,9 +20,7 @@ function App() {
       </div>
       <h1>Vite + React</h1>
       <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
+        <Button onClick={() => setCount((count) => count + 1)}>count is {count}</Button>
         <p>
           Edit <code>src/App.tsx</code> and save to test HMR
         </p>
@@ -28,7 +28,7 @@ function App() {
       <p className="read-the-docs">
         Click on the Vite and React logos to learn more
       </p>
-    </>
+    </PrimeReactProvider>
   )
 }
 
