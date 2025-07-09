@@ -1,33 +1,18 @@
-import { useState } from 'react'
 import { PrimeReactProvider } from 'primereact/api'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import { Button } from 'primereact/button'
-import "primereact/resources/themes/lara-light-cyan/theme.css";
+import "primereact/resources/themes/viva-light/theme.css";
 
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <PrimeReactProvider>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
+      <div className='flex my-40 justify-center items-center flex-col gap-5'>
+        <h1 className='text-5xl font-montserrat font-bold'>Hengtong & Wenyun's wedding</h1>
+        <h4 className='text-2xl'>is coming soon!</h4>
+        <a href="https://calendar.app.google/zJ6JWxUmcmGHrHLW8" target="_blank" rel="noopener noreferrer" className="p-button p-button-success p-button-outlined">
+          點我加入 Google 行事曆
         </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+        <h3>2026/3/28 @ 高雄日航酒店</h3>
+        <iframe className='size-72' src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.1765795558445!2d120.30279087564934!3d22.609880331602284!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e030004dc9165%3A0xf1c8ab02b634069b!2z6auY6ZuE5pel6Iiq6YWS5bqXIEhvdGVsIE5pa2tvIEthb2hzaXVuZw!5e0!3m2!1szh-TW!2stw!4v1751132070968!5m2!1szh-TW!2stw" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <Button onClick={() => setCount((count) => count + 1)}>count is {count}</Button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
     </PrimeReactProvider>
   )
 }
