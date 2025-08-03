@@ -1,8 +1,9 @@
-@import url('https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=LXGW+WenKai+TC&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Pacifico&display=swap');
 
 @theme {
-  --font-montserrat: "Montserrat", sans-serif;
-  --font-sans: "LXGW WenKai TC", serif;
+  --font-montserrat: 'Montserrat', sans-serif;
+  --font-sans: 'LXGW WenKai TC', serif;
+  --font-hand: 'Pacifico', cursive;
 }
 
-@import "tailwindcss"
+@import 'tailwindcss';
