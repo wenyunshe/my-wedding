@@ -1,10 +1,12 @@
 const HomePage = () => {
   return (
-    <div className='flex my-16 md:my-40 mx-6 justify-center items-center flex-col gap-5'>
-      <h1 className='text-2xl md:text-5xl font-hand font-bold text-center'>
-        Hengtong & Wenyun's wedding
+    <div className='flex py-16 md:py-40 px-6 justify-center items-center flex-col gap-5'>
+      <h1 className='text-3xl md:text-7xl font-hand font-bold text-center text-[#443122]'>
+        Hengtong & Wenyun
       </h1>
-      <h4 className='text-xl md:text-2xl text-center'>is coming soon!</h4>
+      <h4 className='text-xl md:text-2xl text-center'>
+        You are invited to the wedding
+      </h4>
       <a
         href={import.meta.env.VITE_CALENDER_EVENT_URL}
         target='_blank'

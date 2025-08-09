@@ -13,7 +13,9 @@ function App() {
           { label: 'Gallery', url: '/gallery' },
         ]}
       />
-      <Outlet />
+      <div className='bg-[#f0E9E5] min-h-screen'>
+        <Outlet />
+      </div>
     </PrimeReactProvider>
   )
 }
