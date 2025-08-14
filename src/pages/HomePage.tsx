@@ -1,7 +1,7 @@
 const HomePage = () => {
   return (
     <div className='flex py-16 md:py-14 px-6 justify-center items-center flex-col gap-5'>
-      <img src='public/hero.svg' className='w-full md:w-2xl' />
+      <img src='/hero.svg' className='w-full md:w-2xl' />
       <h4 className='text-xl md:text-2xl text-center'>
         You are invited to the wedding
       </h4>
