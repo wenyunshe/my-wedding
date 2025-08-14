@@ -1,7 +1,7 @@
 const HomePage = () => {
   return (
-    <div className='flex py-16 md:py-28 px-6 justify-center items-center flex-col gap-5'>
-      <img src='public/hero.svg' />
+    <div className='flex py-16 md:py-14 px-6 justify-center items-center flex-col gap-5'>
+      <img src='public/hero.svg' className='w-full md:w-2xl' />
       <h4 className='text-xl md:text-2xl text-center'>
         You are invited to the wedding
       </h4>
@@ -14,8 +14,10 @@ const HomePage = () => {
         點我加入 Google 行事曆
       </a>
       <h3 className='text-ms/8 md:text-xl/9 text-center'>
-        2026/3/28
-        <br />@ 高雄日航酒店
+        <span className='text-2xl/10 md:text-3xl/12'>2026/3/28</span>
+        <br />
+        <span className='pi pi-at' />
+        &nbsp;高雄日航酒店
       </h3>
       <iframe
         className='size-72'
