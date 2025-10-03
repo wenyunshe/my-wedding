@@ -1,19 +1,20 @@
 import { PrimeReactProvider } from 'primereact/api'
-// import { Menubar } from 'primereact/menubar'
+import { Menubar } from 'primereact/menubar'
 import './assets/theme.css'
 import { Outlet } from 'react-router'
 
 function App() {
   return (
     <PrimeReactProvider>
-      {/* <Menubar
+      <Menubar
         model={[
           { label: 'Home', url: '/' },
-          { label: 'Our story', url: '/our-story' },
-          { label: 'Gallery', url: '/gallery' },
+          { label: 'RSVP', url: '/rsvp' },
+          // { label: 'Our story', url: '/our-story' },
+          // { label: 'Gallery', url: '/gallery' },
         ]}
-      /> */}
-      <div className='bg-[#f0E9E5] min-h-screen'>
+      />
+      <div className='bg-[#f0E9E5]'>
         <Outlet />
       </div>
     </PrimeReactProvider>
