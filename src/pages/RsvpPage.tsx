@@ -29,6 +29,7 @@ const RsvpPage = () => {
     physicalInvitationAddress: '',
   })
   const [errorsMap, setErrorsMap] = useState<Map<string, string>>()
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
   const validateForm = () => {
     const newErrorsMap = new Map<string, string>()
@@ -41,6 +42,9 @@ const RsvpPage = () => {
       if (!emailPattern.test(formData.eInvitationEmail)) {
         newErrorsMap.set('eInvitationEmail', '請填寫有效的電子郵件地址')
       }
+    }
+    if (formData.needsBabySeat && formData.babySeatCount === null) {
+      newErrorsMap.set('babySeatCount', '請填寫嬰兒座椅數量')
     }
     if (formData.physicalInvitationAddress) {
       const validRegex = /^\d{3,}.*$/
@@ -66,11 +70,16 @@ const RsvpPage = () => {
       acceptLabel: '確認送出',
       rejectLabel: '取消',
       accept: async () => {
-        const response = await fetch('/api/rsvp', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(formData),
-        })
+        setIsSubmitting(true)
+        const response = await fetch(
+          import.meta.env.VITE_API_BASE_URL + '/rsvp',
+          {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData),
+          }
+        )
+        setIsSubmitting(false)
 
         const result = await response.json()
         console.log(result)
@@ -180,7 +189,6 @@ const RsvpPage = () => {
                   },
                 }}
                 placeholder='（不包含自己）'
-                type='number'
                 invalid={!!errorsMap?.get('guests')}
                 value={formData.guests}
                 onChange={(e) => setFormData({ ...formData, guests: e.value })}
@@ -205,13 +213,22 @@ const RsvpPage = () => {
             {formData.needsBabySeat && (
               <>
                 <label className='justify-self-end'>兒童座椅張數</label>
-                <InputNumber
-                  type='number'
-                  value={formData.babySeatCount}
-                  onChange={(e) =>
-                    setFormData({ ...formData, babySeatCount: e.value })
-                  }
-                />
+                <div className='relative flex flex-col'>
+                  <InputNumber
+                    value={formData.babySeatCount}
+                    invalid={!!errorsMap?.get('babySeatCount')}
+                    onChange={(e) =>
+                      setFormData({ ...formData, babySeatCount: e.value })
+                    }
+                  />
+                  {errorsMap?.get('babySeatCount') && (
+                    <div className='absolute bottom-[-24px]'>
+                      <small className='p-error'>
+                        {errorsMap.get('babySeatCount')}
+                      </small>
+                    </div>
+                  )}
+                </div>
               </>
             )}
             <div className='justify-self-end'>是否需要素食餐點</div>
@@ -245,7 +262,12 @@ const RsvpPage = () => {
         />
       </div>
       <ConfirmPopup />
-      <Button outlined onClick={onSubmit}>
+      <Button
+        outlined
+        onClick={onSubmit}
+        disabled={isSubmitting}
+        loading={isSubmitting}
+      >
         送出
       </Button>
     </div>
