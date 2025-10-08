@@ -1,5 +1,9 @@
 import { Button } from 'primereact/button'
-import { confirmPopup, ConfirmPopup } from 'primereact/confirmpopup'
+import { Column } from 'primereact/column'
+import { ConfirmDialog } from 'primereact/confirmdialog'
+import { confirmDialog } from 'primereact/confirmdialog'
+import { DataTable } from 'primereact/datatable'
+import { Dialog } from 'primereact/dialog'
 import { InputNumber } from 'primereact/inputnumber'
 import { InputText } from 'primereact/inputtext'
 import { InputTextarea } from 'primereact/inputtextarea'
@@ -7,6 +11,17 @@ import { SelectButton } from 'primereact/selectbutton'
 import { useState } from 'react'
 
 const RsvpPage = () => {
+  const defaultFormData = {
+    name: '',
+    attending: true,
+    guests: null,
+    needsBabySeat: false,
+    babySeatCount: null,
+    needsVegetarianMeal: false,
+    remarks: '',
+    eInvitationEmail: '',
+    physicalInvitationAddress: '',
+  }
   const [formData, setFormData] = useState<{
     name: string
     attending: boolean
@@ -17,19 +32,11 @@ const RsvpPage = () => {
     remarks: string
     eInvitationEmail: string
     physicalInvitationAddress: string
-  }>({
-    name: '',
-    attending: true,
-    guests: null,
-    needsBabySeat: false,
-    babySeatCount: null,
-    needsVegetarianMeal: false,
-    remarks: '',
-    eInvitationEmail: '',
-    physicalInvitationAddress: '',
-  })
+  }>(defaultFormData)
   const [errorsMap, setErrorsMap] = useState<Map<string, string>>()
   const [isSubmitting, setIsSubmitting] = useState(false)
+  const [successDialogVisible, setSuccessDialogVisible] = useState(false)
+  const [errorDialogVisible, setErrorDialogVisible] = useState(false)
 
   const validateForm = () => {
     const newErrorsMap = new Map<string, string>()
@@ -57,16 +64,73 @@ const RsvpPage = () => {
     return newErrorsMap.size === 0
   }
 
-  const onSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
-    const confirmPopupTarget = event.currentTarget
+  const onSubmit = async () => {
     const isFormValid = validateForm()
     if (!isFormValid) {
       return
     }
-    confirmPopup({
-      target: confirmPopupTarget,
-      message: '資料都確認過了嗎？',
-      icon: 'pi pi-exclamation-triangle',
+    confirmDialog({
+      header: '送出確認',
+      message: (
+        <div>
+          <div>確定送出以下資料嗎？</div>
+          <div className='mt-4'>
+            <DataTable
+              size='small'
+              showGridlines
+              value={[
+                {
+                  field: '你的大名',
+                  value: formData.name,
+                },
+                {
+                  field: '是否参加我們的婚禮？',
+                  value: formData.attending ? '参加' : '不参加',
+                },
+                ...(formData.attending
+                  ? [
+                      {
+                        field: '攜伴人數',
+                        value: formData.guests ?? '-',
+                      },
+                      {
+                        field: '是否需要兒童座椅？',
+                        value: formData.needsBabySeat ? '需要' : '不需要',
+                      },
+                      ...(formData.needsBabySeat
+                        ? [
+                            {
+                              field: '兒童座椅張數',
+                              value: formData.babySeatCount ?? '-',
+                            },
+                          ]
+                        : []),
+                      {
+                        field: '是否需要素食餐點？',
+                        value: formData.needsVegetarianMeal ? '需要' : '不需要',
+                      },
+                    ]
+                  : []),
+                {
+                  field: '電子喜帖寄送 Email',
+                  value: formData.eInvitationEmail || '-',
+                },
+                {
+                  field: '紙本喜帖寄送地址',
+                  value: formData.physicalInvitationAddress || '-',
+                },
+                {
+                  field: '想給我們的留言',
+                  value: formData.remarks || '-',
+                },
+              ]}
+            >
+              <Column field='field' header='欄位' />
+              <Column field='value' header='填寫內容' />
+            </DataTable>
+          </div>
+        </div>
+      ),
       acceptLabel: '確認送出',
       rejectLabel: '取消',
       accept: async () => {
@@ -80,18 +144,22 @@ const RsvpPage = () => {
           }
         )
         setIsSubmitting(false)
-
-        const result = await response.json()
-        console.log(result)
+        if (response.ok) {
+          setSuccessDialogVisible(true)
+          setFormData(defaultFormData)
+          setErrorsMap(undefined)
+        } else {
+          setErrorDialogVisible(true)
+        }
       },
     })
   }
 
   return (
-    <div className='flex flex-col items-center justify-center p-20'>
+    <div className='flex flex-col items-center justify-center sm:p-20 p-4'>
       <h1 className='text-4xl font-bold mb-4'>RSVP</h1>
-      <div className='grid grid-cols-[auto_1fr] gap-8 items-center grid-flow-row-dense mb-4'>
-        <label className='justify-self-end' htmlFor='name'>
+      <div className='grid sm:grid-cols-[auto_1fr] sm:gap-8 items-center grid-flow-row-dense mb-4 w-full sm:w-lg'>
+        <label className='sm:justify-self-end mt-8 mb-1' htmlFor='name'>
           你的大名
         </label>
         <div className='relative flex flex-col'>
@@ -112,7 +180,7 @@ const RsvpPage = () => {
             </div>
           )}
         </div>
-        <div className='justify-self-end'>是否参加我們的婚禮</div>
+        <div className='sm:justify-self-end mt-8 mb-1'>是否參加我們的婚禮</div>
         <SelectButton
           value={formData.attending}
           onChange={(e) => setFormData({ ...formData, attending: e.value })}
@@ -121,7 +189,10 @@ const RsvpPage = () => {
             { label: '不参加', value: false },
           ]}
         />
-        <label className='justify-self-end' htmlFor='eInvitationEmail'>
+        <label
+          className='sm:justify-self-end mt-8 mb-1'
+          htmlFor='eInvitationEmail'
+        >
           電子喜帖寄送 Email
         </label>
         <div className='relative flex flex-col'>
@@ -146,7 +217,10 @@ const RsvpPage = () => {
             </div>
           )}
         </div>
-        <label className='justify-self-end' htmlFor='physicalInvitationAddress'>
+        <label
+          className='sm:justify-self-end mt-8 mb-1'
+          htmlFor='physicalInvitationAddress'
+        >
           紙本喜帖寄送地址
         </label>
         <div className='relative flex flex-col'>
@@ -176,7 +250,7 @@ const RsvpPage = () => {
         </div>
         {formData.attending && (
           <>
-            <label className='justify-self-end' htmlFor='guests'>
+            <label className='sm:justify-self-end mt-8 mb-1' htmlFor='guests'>
               攜伴人數
             </label>
             <div className='relative flex flex-col'>
@@ -199,7 +273,9 @@ const RsvpPage = () => {
                 </div>
               )}
             </div>
-            <div className='justify-self-end'>是否需要兒童座椅</div>
+            <div className='sm:justify-self-end mt-8 mb-1'>
+              是否需要兒童座椅
+            </div>
             <SelectButton
               value={formData.needsBabySeat}
               onChange={(e) =>
@@ -212,7 +288,9 @@ const RsvpPage = () => {
             />
             {formData.needsBabySeat && (
               <>
-                <label className='justify-self-end'>兒童座椅張數</label>
+                <label className='sm:justify-self-end mt-8 mb-1'>
+                  兒童座椅張數
+                </label>
                 <div className='relative flex flex-col'>
                   <InputNumber
                     value={formData.babySeatCount}
@@ -231,7 +309,9 @@ const RsvpPage = () => {
                 </div>
               </>
             )}
-            <div className='justify-self-end'>是否需要素食餐點</div>
+            <div className='sm:justify-self-end mt-8 mb-1'>
+              是否需要素食餐點
+            </div>
             <SelectButton
               value={formData.needsVegetarianMeal}
               onChange={(e) =>
@@ -244,7 +324,7 @@ const RsvpPage = () => {
             />
           </>
         )}
-        <label className='justify-self-end' htmlFor='remarks'>
+        <label className='sm:justify-self-end mt-8 mb-1' htmlFor='remarks'>
           想給我們的留言
         </label>
         <InputTextarea
@@ -261,15 +341,51 @@ const RsvpPage = () => {
           }
         />
       </div>
-      <ConfirmPopup />
+      <ConfirmDialog
+        breakpoints={{ '960px': '96vw' }}
+        style={{ width: '50vw' }}
+        contentStyle={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      />
       <Button
         outlined
+        label='送出'
         onClick={onSubmit}
         disabled={isSubmitting}
         loading={isSubmitting}
+      />
+      <Dialog
+        header='送出成功'
+        footer={
+          <Button label='確定' onClick={() => setSuccessDialogVisible(false)} />
+        }
+        visible={successDialogVisible}
+        onHide={() => setSuccessDialogVisible(false)}
       >
-        送出
-      </Button>
+        <p>感謝填寫！我們已收到您的回覆。</p>
+      </Dialog>
+      <Dialog
+        header='送出失敗'
+        footer={
+          <Button label='確定' onClick={() => setErrorDialogVisible(false)} />
+        }
+        visible={errorDialogVisible}
+        onHide={() => setErrorDialogVisible(false)}
+      >
+        <p>送出失敗，請再嘗試一次。</p>
+        <p>
+          如果問題持續存在，請聯繫我們的
+          <a
+            className='text-[#bc5c38] underline'
+            href='https://line.me/ti/p/LMHKX2x6k-'
+          >
+            客服團隊
+          </a>
+          。
+        </p>
+      </Dialog>
     </div>
   )
 }

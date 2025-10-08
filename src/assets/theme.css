@@ -7863,7 +7863,6 @@
     border: 0 none;
   }
   .p-dialog .p-dialog-header {
-    border-bottom: 1px solid #dee2e6;
     background: #ffffff;
     color: #495057;
     padding: 1.5rem;
@@ -7909,7 +7908,6 @@
     border-bottom-left-radius: 3px;
   }
   .p-dialog .p-dialog-footer {
-    border-top: 1px solid #dee2e6;
     background: #ffffff;
     color: #495057;
     padding: 1.5rem;
