@@ -157,9 +157,12 @@ const RsvpPage = () => {
 
   return (
     <div className='flex flex-col items-center justify-center sm:p-20 px-4 py-8'>
-      <h1 className='text-4xl font-bold mb-4'>RSVP</h1>
+      <h1 className='text-4xl font-bold mb-4 sm:mb-12'>RSVP</h1>
       <div className='grid sm:grid-cols-[auto_1fr] sm:gap-8 items-center grid-flow-row-dense mb-4 w-full sm:w-lg'>
-        <label className='sm:justify-self-end mt-8 mb-1' htmlFor='name'>
+        <label
+          className='sm:justify-self-end mt-8 mb-1 sm:mt-0 sm:mb-0'
+          htmlFor='name'
+        >
           你的大名
         </label>
         <div className='relative flex flex-col'>
@@ -180,7 +183,9 @@ const RsvpPage = () => {
             </div>
           )}
         </div>
-        <div className='sm:justify-self-end mt-8 mb-1'>是否參加我們的婚禮</div>
+        <div className='sm:justify-self-end mt-8 mb-1 sm:mt-0 sm:mb-0'>
+          是否參加我們的婚禮
+        </div>
         <SelectButton
           value={formData.attending}
           onChange={(e) => setFormData({ ...formData, attending: e.value })}
@@ -190,7 +195,7 @@ const RsvpPage = () => {
           ]}
         />
         <label
-          className='sm:justify-self-end mt-8 mb-1'
+          className='sm:justify-self-end mt-8 mb-1 sm:mt-0 sm:mb-0'
           htmlFor='eInvitationEmail'
         >
           電子喜帖寄送 Email
@@ -218,7 +223,7 @@ const RsvpPage = () => {
           )}
         </div>
         <label
-          className='sm:justify-self-end mt-8 mb-1'
+          className='sm:justify-self-end mt-8 mb-1 sm:mt-0 sm:mb-0'
           htmlFor='physicalInvitationAddress'
         >
           紙本喜帖寄送地址
@@ -250,7 +255,10 @@ const RsvpPage = () => {
         </div>
         {formData.attending && (
           <>
-            <label className='sm:justify-self-end mt-8 mb-1' htmlFor='guests'>
+            <label
+              className='sm:justify-self-end mt-8 mb-1 sm:mt-0 sm:mb-0'
+              htmlFor='guests'
+            >
               攜伴人數
             </label>
             <div className='relative flex flex-col'>
@@ -273,7 +281,7 @@ const RsvpPage = () => {
                 </div>
               )}
             </div>
-            <div className='sm:justify-self-end mt-8 mb-1'>
+            <div className='sm:justify-self-end mt-8 mb-1 sm:mt-0 sm:mb-0'>
               是否需要兒童座椅
             </div>
             <SelectButton
@@ -288,7 +296,7 @@ const RsvpPage = () => {
             />
             {formData.needsBabySeat && (
               <>
-                <label className='sm:justify-self-end mt-8 mb-1'>
+                <label className='sm:justify-self-end mt-8 mb-1 sm:mt-0 sm:mb-0'>
                   兒童座椅張數
                 </label>
                 <div className='relative flex flex-col'>
@@ -309,7 +317,7 @@ const RsvpPage = () => {
                 </div>
               </>
             )}
-            <div className='sm:justify-self-end mt-8 mb-1'>
+            <div className='sm:justify-self-end mt-8 mb-1 sm:mt-0 sm:mb-0'>
               是否需要素食餐點
             </div>
             <SelectButton
@@ -324,7 +332,10 @@ const RsvpPage = () => {
             />
           </>
         )}
-        <label className='sm:justify-self-end mt-8 mb-1' htmlFor='remarks'>
+        <label
+          className='sm:justify-self-end mt-8 mb-1 sm:mt-0 sm:mb-0'
+          htmlFor='remarks'
+        >
           想給我們的留言
         </label>
         <InputTextarea

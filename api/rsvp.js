@@ -1,7 +1,18 @@
 import { google } from 'googleapis'
 
 async function handler(req, res) {
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:5173')
+  const allowedOrigins = [
+    'http://localhost:5173',
+    'https://www.biao-she.wedding',
+    'https://biao-she.wedding',
+    'https://my-wedding-qwfyr30qm-wenyunshes-projects.vercel.app',
+    'https://my-wedding-e1so2wrhg-wenyunshes-projects.vercel.app',
+  ]
+
+  const origin = req.headers.origin
+  if (allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin)
+  }
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
 
