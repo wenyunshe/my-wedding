@@ -156,7 +156,7 @@ const RsvpPage = () => {
   }
 
   return (
-    <div className='flex flex-col items-center justify-center sm:p-20 p-4'>
+    <div className='flex flex-col items-center justify-center sm:p-20 px-4 py-8'>
       <h1 className='text-4xl font-bold mb-4'>RSVP</h1>
       <div className='grid sm:grid-cols-[auto_1fr] sm:gap-8 items-center grid-flow-row-dense mb-4 w-full sm:w-lg'>
         <label className='sm:justify-self-end mt-8 mb-1' htmlFor='name'>
