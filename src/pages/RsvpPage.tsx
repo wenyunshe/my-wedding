@@ -1,31 +1,26 @@
 import { Button } from 'primereact/button'
-import { Column } from 'primereact/column'
 import { ConfirmDialog } from 'primereact/confirmdialog'
 import { confirmDialog } from 'primereact/confirmdialog'
-import { DataTable } from 'primereact/datatable'
 import { Dialog } from 'primereact/dialog'
 import { InputNumber } from 'primereact/inputnumber'
 import { InputText } from 'primereact/inputtext'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { SelectButton } from 'primereact/selectbutton'
-import { useCallback, useEffect, useMemo, useState } from 'react'
+import { useCallback, useState } from 'react'
+
+const DEFAULT_FORM_DATA = {
+  name: '',
+  attending: true,
+  guests: null,
+  needsBabySeat: false,
+  babySeatCount: null,
+  needsVegetarianMeal: false,
+  remarks: '',
+  eInvitationEmail: '',
+  physicalInvitationAddress: '',
+}
 
 const RsvpPage = () => {
-  const defaultFormData = useMemo(
-    () => ({
-      name: '',
-      attending: true,
-      guests: null,
-      needsBabySeat: false,
-      babySeatCount: null,
-      needsVegetarianMeal: false,
-      remarks: '',
-      eInvitationEmail: '',
-      physicalInvitationAddress: '',
-    }),
-    []
-  )
-
   const [formData, setFormData] = useState<{
     name: string
     attending: boolean
@@ -36,7 +31,7 @@ const RsvpPage = () => {
     remarks: string
     eInvitationEmail: string
     physicalInvitationAddress: string
-  }>(defaultFormData)
+  }>(DEFAULT_FORM_DATA)
   const [errorsMap, setErrorsMap] = useState<Map<string, string>>()
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [successDialogVisible, setSuccessDialogVisible] = useState(false)
@@ -63,7 +58,10 @@ const RsvpPage = () => {
         newErrorsMap.set('physicalInvitationAddress', '請在開頭填寫郵遞區號')
       }
     }
-    setErrorsMap(newErrorsMap)
+
+    if (newErrorsMap.size > 0) {
+      setErrorsMap(newErrorsMap)
+    }
 
     return newErrorsMap.size === 0
   }, [formData])
@@ -75,66 +73,7 @@ const RsvpPage = () => {
     }
     confirmDialog({
       header: '送出確認',
-      message: (
-        <div>
-          <div>確定送出以下資料嗎？</div>
-          <div className='mt-4'>
-            <DataTable
-              size='small'
-              showGridlines
-              value={[
-                {
-                  field: '你的大名',
-                  value: formData.name,
-                },
-                {
-                  field: '是否参加我們的婚禮？',
-                  value: formData.attending ? '参加' : '不参加',
-                },
-                ...(formData.attending
-                  ? [
-                      {
-                        field: '攜伴人數',
-                        value: formData.guests ?? '-',
-                      },
-                      {
-                        field: '是否需要兒童座椅？',
-                        value: formData.needsBabySeat ? '需要' : '不需要',
-                      },
-                      ...(formData.needsBabySeat
-                        ? [
-                            {
-                              field: '兒童座椅張數',
-                              value: formData.babySeatCount ?? '-',
-                            },
-                          ]
-                        : []),
-                      {
-                        field: '是否需要素食餐點？',
-                        value: formData.needsVegetarianMeal ? '需要' : '不需要',
-                      },
-                    ]
-                  : []),
-                {
-                  field: '電子喜帖寄送 Email',
-                  value: formData.eInvitationEmail || '-',
-                },
-                {
-                  field: '紙本喜帖寄送地址',
-                  value: formData.physicalInvitationAddress || '-',
-                },
-                {
-                  field: '想給我們的留言',
-                  value: formData.remarks || '-',
-                },
-              ]}
-            >
-              <Column field='field' header='欄位' />
-              <Column field='value' header='填寫內容' />
-            </DataTable>
-          </div>
-        </div>
-      ),
+      message: '請再次確認您的回覆內容，送出後將無法修改。',
       acceptLabel: '確認送出',
       rejectLabel: '取消',
       accept: async () => {
@@ -156,13 +95,6 @@ const RsvpPage = () => {
       },
     })
   }, [formData, validateForm])
-
-  useEffect(() => {
-    if (successDialogVisible) {
-      setFormData(defaultFormData)
-      setErrorsMap(undefined)
-    }
-  }, [successDialogVisible, defaultFormData])
 
   return (
     <div className='flex flex-col items-center justify-center sm:p-20 px-4 py-8'>
@@ -379,10 +311,21 @@ const RsvpPage = () => {
       <Dialog
         header='送出成功'
         footer={
-          <Button label='確定' onClick={() => setSuccessDialogVisible(false)} />
+          <Button
+            label='確定'
+            onClick={() => {
+              setSuccessDialogVisible(false)
+              setFormData(DEFAULT_FORM_DATA)
+              setErrorsMap(undefined)
+            }}
+          />
         }
         visible={successDialogVisible}
-        onHide={() => setSuccessDialogVisible(false)}
+        onHide={() => {
+          setSuccessDialogVisible(false)
+          setFormData(DEFAULT_FORM_DATA)
+          setErrorsMap(undefined)
+        }}
       >
         <p>感謝填寫！我們已收到您的回覆。</p>
       </Dialog>
