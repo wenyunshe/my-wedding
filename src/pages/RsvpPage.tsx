@@ -2,7 +2,6 @@ import { Button } from 'primereact/button'
 import { ConfirmDialog } from 'primereact/confirmdialog'
 import { confirmDialog } from 'primereact/confirmdialog'
 import { Dialog } from 'primereact/dialog'
-import { InputNumber } from 'primereact/inputnumber'
 import { InputText } from 'primereact/inputtext'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { SelectButton } from 'primereact/selectbutton'
@@ -11,9 +10,9 @@ import { useCallback, useState } from 'react'
 const DEFAULT_FORM_DATA = {
   name: '',
   attending: true,
-  guests: null,
+  guests: '',
   needsBabySeat: false,
-  babySeatCount: null,
+  babySeatCount: '',
   needsVegetarianMeal: false,
   remarks: '',
   eInvitationEmail: '',
@@ -24,9 +23,9 @@ const RsvpPage = () => {
   const [formData, setFormData] = useState<{
     name: string
     attending: boolean
-    guests: number | null
+    guests: string
     needsBabySeat: boolean
-    babySeatCount: number | null
+    babySeatCount: string
     needsVegetarianMeal: boolean
     remarks: string
     eInvitationEmail: string
@@ -40,8 +39,18 @@ const RsvpPage = () => {
   const validateForm = useCallback(() => {
     const newErrorsMap = new Map<string, string>()
     if (!formData.name) newErrorsMap.set('name', '請填寫你的大名')
-    if (formData.attending && formData.guests === null) {
+    if (formData.attending && formData.guests === '') {
       newErrorsMap.set('guests', '請填寫攜伴人數')
+    }
+    if (formData.attending && formData.guests) {
+      const guestsNumber = Number(formData.guests)
+      if (
+        isNaN(guestsNumber) ||
+        !Number.isInteger(guestsNumber) ||
+        guestsNumber < 0
+      ) {
+        newErrorsMap.set('guests', '請填寫有效的攜伴人數')
+      }
     }
     if (formData.eInvitationEmail) {
       const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
@@ -49,8 +58,18 @@ const RsvpPage = () => {
         newErrorsMap.set('eInvitationEmail', '請填寫有效的電子郵件地址')
       }
     }
-    if (formData.needsBabySeat && formData.babySeatCount === null) {
+    if (formData.needsBabySeat && formData.babySeatCount === '') {
       newErrorsMap.set('babySeatCount', '請填寫嬰兒座椅數量')
+    }
+    if (formData.needsBabySeat && formData.babySeatCount) {
+      const babySeatCountNumber = Number(formData.babySeatCount)
+      if (
+        isNaN(babySeatCountNumber) ||
+        !Number.isInteger(babySeatCountNumber) ||
+        babySeatCountNumber <= 0
+      ) {
+        newErrorsMap.set('babySeatCount', '請填寫有效的嬰兒座椅數量')
+      }
     }
     if (formData.physicalInvitationAddress) {
       const validRegex = /^\d{3,}.*$/
@@ -203,18 +222,20 @@ const RsvpPage = () => {
               攜伴人數
             </label>
             <div className='relative flex flex-col'>
-              <InputNumber
+              <InputText
                 pt={{
-                  input: {
-                    root: {
-                      id: 'guests',
-                    },
+                  root: {
+                    id: 'guests',
                   },
                 }}
+                inputMode='numeric'
+                pattern='\d*'
                 placeholder='（不包含自己）'
                 invalid={!!errorsMap?.get('guests')}
                 value={formData.guests}
-                onChange={(e) => setFormData({ ...formData, guests: e.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, guests: e.target.value })
+                }
               />
               {errorsMap?.get('guests') && (
                 <div className='absolute bottom-[-24px]'>
@@ -241,11 +262,21 @@ const RsvpPage = () => {
                   兒童座椅張數
                 </label>
                 <div className='relative flex flex-col'>
-                  <InputNumber
+                  <InputText
+                    pt={{
+                      root: {
+                        id: 'babySeatCount',
+                      },
+                    }}
+                    inputMode='numeric'
+                    pattern='\d*'
                     value={formData.babySeatCount}
                     invalid={!!errorsMap?.get('babySeatCount')}
                     onChange={(e) =>
-                      setFormData({ ...formData, babySeatCount: e.value })
+                      setFormData({
+                        ...formData,
+                        babySeatCount: e.target.value,
+                      })
                     }
                   />
                   {errorsMap?.get('babySeatCount') && (

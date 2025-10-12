@@ -68,13 +68,13 @@ async function handler(req, res) {
     const row = [
       new Date().toISOString(),
       name,
-      guests || 0,
-      needsBabySeat || false,
-      babySeatCount || 0,
-      needsVegetarianMeal || false,
-      eInvitationEmail || '-',
-      physicalInvitationAddress || '-',
-      remarks || '-',
+      guests ?? '0',
+      needsBabySeat ?? false,
+      babySeatCount ?? '0',
+      needsVegetarianMeal ?? false,
+      eInvitationEmail ?? '-',
+      physicalInvitationAddress ?? '-',
+      remarks ?? '-',
     ]
 
     await sheets.spreadsheets.values.append({
