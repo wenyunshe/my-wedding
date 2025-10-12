@@ -2632,6 +2632,10 @@
 }
 
 @layer primereact {
+  html,
+  body {
+    background-color: #f0e9e5;
+  }
   * {
     box-sizing: border-box;
   }

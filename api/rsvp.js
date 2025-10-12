@@ -1,18 +1,26 @@
 import { google } from 'googleapis'
 
-async function handler(req, res) {
-  const allowedOrigins = [
-    'http://localhost:5173',
-    'https://www.biao-she.wedding',
-    'https://biao-she.wedding',
-    'https://my-wedding-qwfyr30qm-wenyunshes-projects.vercel.app',
-    'https://my-wedding-e1so2wrhg-wenyunshes-projects.vercel.app',
-  ]
+const allowedOrigins = [
+  'http://localhost:5173',
+  'https://www.biao-she.wedding',
+  'https://biao-she.wedding',
+]
 
-  const origin = req.headers.origin
-  if (allowedOrigins.includes(origin)) {
-    res.setHeader('Access-Control-Allow-Origin', origin)
+function isAllowedOrigin(origin) {
+  if (!origin) return false
+
+  const previewPattern =
+    /^https:\/\/my-wedding-[a-z0-9]+\.wenyunshes-projects\.vercel\.app$/
+
+  return allowedOrigins.includes(origin) || previewPattern.test(origin)
+}
+
+async function handler(req, res) {
+  if (!isAllowedOrigin(req.headers.origin)) {
+    return res.status(403).json({ error: 'Origin not allowed' })
   }
+
+  res.setHeader('Access-Control-Allow-Origin', req.headers.origin)
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS')
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type')
 

@@ -8,20 +8,24 @@ import { InputNumber } from 'primereact/inputnumber'
 import { InputText } from 'primereact/inputtext'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { SelectButton } from 'primereact/selectbutton'
-import { useState } from 'react'
+import { useCallback, useEffect, useMemo, useState } from 'react'
 
 const RsvpPage = () => {
-  const defaultFormData = {
-    name: '',
-    attending: true,
-    guests: null,
-    needsBabySeat: false,
-    babySeatCount: null,
-    needsVegetarianMeal: false,
-    remarks: '',
-    eInvitationEmail: '',
-    physicalInvitationAddress: '',
-  }
+  const defaultFormData = useMemo(
+    () => ({
+      name: '',
+      attending: true,
+      guests: null,
+      needsBabySeat: false,
+      babySeatCount: null,
+      needsVegetarianMeal: false,
+      remarks: '',
+      eInvitationEmail: '',
+      physicalInvitationAddress: '',
+    }),
+    []
+  )
+
   const [formData, setFormData] = useState<{
     name: string
     attending: boolean
@@ -38,7 +42,7 @@ const RsvpPage = () => {
   const [successDialogVisible, setSuccessDialogVisible] = useState(false)
   const [errorDialogVisible, setErrorDialogVisible] = useState(false)
 
-  const validateForm = () => {
+  const validateForm = useCallback(() => {
     const newErrorsMap = new Map<string, string>()
     if (!formData.name) newErrorsMap.set('name', '請填寫你的大名')
     if (formData.attending && formData.guests === null) {
@@ -62,9 +66,9 @@ const RsvpPage = () => {
     setErrorsMap(newErrorsMap)
 
     return newErrorsMap.size === 0
-  }
+  }, [formData])
 
-  const onSubmit = async () => {
+  const onSubmit = useCallback(async () => {
     const isFormValid = validateForm()
     if (!isFormValid) {
       return
@@ -146,14 +150,19 @@ const RsvpPage = () => {
         setIsSubmitting(false)
         if (response.ok) {
           setSuccessDialogVisible(true)
-          setFormData(defaultFormData)
-          setErrorsMap(undefined)
         } else {
           setErrorDialogVisible(true)
         }
       },
     })
-  }
+  }, [formData, validateForm])
+
+  useEffect(() => {
+    if (successDialogVisible) {
+      setFormData(defaultFormData)
+      setErrorsMap(undefined)
+    }
+  }, [successDialogVisible, defaultFormData])
 
   return (
     <div className='flex flex-col items-center justify-center sm:p-20 px-4 py-8'>
@@ -396,6 +405,18 @@ const RsvpPage = () => {
           </a>
           。
         </p>
+      </Dialog>
+      <Dialog
+        header='送出中'
+        visible={isSubmitting}
+        onHide={() => {}}
+        showCloseIcon={false}
+        closable={false}
+      >
+        <div className='flex justify-center items-center gap-2 pb-[1.5rem]'>
+          <i className='pi pi-spin pi-spinner' />
+          請稍候，我們正在上傳您的回覆。
+        </div>
       </Dialog>
     </div>
   )
