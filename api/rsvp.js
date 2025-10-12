@@ -10,7 +10,7 @@ function isAllowedOrigin(origin) {
   if (!origin) return false
 
   const previewPattern =
-    /^https:\/\/my-wedding-[a-z0-9]+\.wenyunshes-projects\.vercel\.app$/
+    /^https:\/\/my-wedding-[a-z0-9]+\-wenyunshes-projects\.vercel\.app$/
 
   return allowedOrigins.includes(origin) || previewPattern.test(origin)
 }
