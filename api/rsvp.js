@@ -1,3 +1,4 @@
+import dayjs from 'dayjs'
 import { google } from 'googleapis'
 
 const allowedOrigins = [
@@ -66,7 +67,7 @@ async function handler(req, res) {
     const SHEET_NAME = 'RSVP'
 
     const row = [
-      new Date().toISOString(),
+      dayjs().format('YYYY-MM-DD HH:mm:ss (Z)'),
       name,
       guests ?? '0',
       needsBabySeat ?? false,
