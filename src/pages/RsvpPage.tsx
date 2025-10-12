@@ -294,8 +294,6 @@ const RsvpPage = () => {
         />
       </div>
       <ConfirmDialog
-        breakpoints={{ '960px': '96vw' }}
-        style={{ width: '50vw' }}
         contentStyle={{
           display: 'flex',
           justifyContent: 'center',
