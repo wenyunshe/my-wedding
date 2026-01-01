@@ -2,6 +2,7 @@ import { PrimeReactProvider } from 'primereact/api'
 import { Menubar } from 'primereact/menubar'
 import './assets/theme.css'
 import { Outlet } from 'react-router'
+import { Analytics } from '@vercel/analytics/react'
 
 function App() {
   return (
@@ -32,6 +33,7 @@ function App() {
           ]}
         />
         <Outlet />
+        <Analytics />
       </div>
     </PrimeReactProvider>
   )
