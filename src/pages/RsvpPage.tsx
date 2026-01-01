@@ -2,6 +2,7 @@ import { Button } from 'primereact/button'
 import { ConfirmDialog } from 'primereact/confirmdialog'
 import { confirmDialog } from 'primereact/confirmdialog'
 import { Dialog } from 'primereact/dialog'
+import { Divider } from 'primereact/divider'
 import { InputText } from 'primereact/inputtext'
 import { InputTextarea } from 'primereact/inputtextarea'
 import { SelectButton } from 'primereact/selectbutton'
@@ -118,6 +119,18 @@ const RsvpPage = () => {
   return (
     <div className='flex flex-col items-center justify-center sm:p-20 px-4 py-8'>
       <h1 className='text-4xl font-bold mb-4 sm:mb-12'>RSVP</h1>
+      <div className='max-w-lg mb-8 flex flex-col items-center'>
+        <p className='text-center'>
+          誠摯地邀請您參加我們的婚禮！
+          <br />
+          不管您能不能前來，我們都想和您一同分享這個喜悅！
+        </p>
+        <Divider />
+        <ul className='mb-8 max-w-lg text-center'>
+          <li className='mb-2'>時間：2026/3/28（五）12:30 PM（午宴）</li>
+          <li className='mb-2'>地點：高雄日航酒店 3F</li>
+        </ul>
+      </div>
       <div className='grid sm:grid-cols-[auto_1fr] sm:gap-8 items-center grid-flow-row-dense mb-4 w-full sm:w-lg'>
         <label
           className='sm:justify-self-end mt-8 mb-1 sm:mt-0 sm:mb-0'

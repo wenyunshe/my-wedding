@@ -11,6 +11,22 @@ function App() {
           model={[
             { label: 'Home', url: '/' },
             { label: 'RSVP', url: '/rsvp' },
+            {
+              label: 'Pre-wedding photos',
+              target: '_blank',
+              template: (item) => (
+                <a
+                  href={item.url}
+                  target={item.target}
+                  className='p-menuitem-link'
+                  rel='noopener noreferrer'
+                >
+                  <span className='p-menuitem-text'>{item.label}</span>&nbsp;
+                  <span className='pi pi-external-link' />
+                </a>
+              ),
+              url: 'https://photos.app.goo.gl/eqndz8NFGqiiToTDA',
+            },
             // { label: 'Our story', url: '/our-story' },
             // { label: 'Gallery', url: '/gallery' },
           ]}

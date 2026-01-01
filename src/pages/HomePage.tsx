@@ -37,29 +37,41 @@ const HomePage = () => {
           {...fadeInProps}
           transition={{ duration: 0.5, delay: 0.3 }}
         >
-          <span className='text-2xl/10 md:text-3xl/12'>
-            2026/3/28&nbsp;&nbsp;&nbsp;12:30 PM<small>（午宴）</small>
-          </span>
-          <br />
+          <span className='text-2xl/10 md:text-3xl/12'>2026/3/28（六）</span>
+          <ul className='my-2'>
+            <li>11:30 迎賓雞尾酒</li>
+            <li>12:00 入席</li>
+            <li>12:30 準時開席</li>
+          </ul>
           <span className='pi pi-at' />
-          &nbsp;高雄日航酒店
+          &nbsp;高雄日航酒店 3F
         </motion.h3>
         <motion.div
-          className='flex gap-3'
+          className='flex gap-2 md:flex-row flex-wrap md:items-center justify-center'
           {...fadeInProps}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
           <a href='/rsvp' rel='noopener noreferrer' className='p-button'>
             填寫 RSVP
           </a>
-          <a
-            href={import.meta.env.VITE_CALENDER_EVENT_URL}
-            target='_blank'
-            rel='noopener noreferrer'
-            className='p-button p-button-outlined'
-          >
-            點我加入 Google 行事曆
-          </a>
+          <div className='flex gap-2 md:flex-row md:items-center'>
+            <a
+              href={import.meta.env.VITE_CALENDER_EVENT_URL}
+              target='_blank'
+              rel='noopener noreferrer'
+              className='p-button p-button-outlined'
+            >
+              加入 Google 行事曆
+            </a>
+            <a
+              href='https://lin.ee/tBAIooS'
+              target='_blank'
+              rel='noopener noreferrer'
+              className='p-button p-button-outlined'
+            >
+              加入 LINE 好友
+            </a>
+          </div>
         </motion.div>
         <motion.iframe
           className='lg:size-120 md:size-100 size-80 rounded-lg shadow-lg border-0'
