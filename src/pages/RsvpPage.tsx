@@ -127,7 +127,7 @@ const RsvpPage = () => {
         </p>
         <Divider />
         <ul className='mb-8 max-w-lg text-center'>
-          <li className='mb-2'>時間：2026/3/28（五）12:30 PM（午宴）</li>
+          <li className='mb-2'>時間：2026/3/28（六）12:30 PM（午宴）</li>
           <li className='mb-2'>地點：高雄日航酒店 3F</li>
         </ul>
       </div>
