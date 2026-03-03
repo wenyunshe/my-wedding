@@ -12,6 +12,7 @@ function App() {
           model={[
             { label: 'Home', url: '/' },
             { label: 'RSVP', url: '/rsvp' },
+            { label: 'Wedding invitation', url: '/wedding-invitation' },
             {
               label: 'Pre-wedding photos',
               target: '_blank',
@@ -28,8 +29,6 @@ function App() {
               ),
               url: 'https://photos.app.goo.gl/eqndz8NFGqiiToTDA',
             },
-            // { label: 'Our story', url: '/our-story' },
-            // { label: 'Gallery', url: '/gallery' },
           ]}
         />
         <Outlet />

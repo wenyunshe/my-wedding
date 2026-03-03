@@ -118,7 +118,7 @@ const RsvpPage = () => {
 
   return (
     <div className='flex flex-col items-center justify-center sm:p-20 px-4 py-8'>
-      <h1 className='text-4xl font-bold mb-4 sm:mb-12'>RSVP</h1>
+      <h1 className='text-3xl sm:text-4xl font-bold mb-4 sm:mb-12'>RSVP</h1>
       <div className='max-w-lg mb-8 flex flex-col items-center'>
         <p className='text-center'>
           誠摯地邀請您參加我們的婚禮！
