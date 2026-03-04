@@ -70,7 +70,7 @@ const WeddingInvitationPage = () => {
 
   return (
     <div className='flex flex-col items-center h-screen p-12'>
-      <h1 className='text-3xl sm:text-4xl font-bold mt-18 mb-24'>
+      <h1 className='text-2xl sm:text-4xl font-bold mt-14 mb-18'>
         Wedding Invitation
       </h1>
       <div>

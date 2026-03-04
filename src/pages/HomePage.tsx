@@ -51,8 +51,12 @@ const HomePage = () => {
           {...fadeInProps}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <a href='/rsvp' rel='noopener noreferrer' className='p-button'>
-            填寫 RSVP
+          <a
+            href='/wedding-invitation'
+            rel='noopener noreferrer'
+            className='p-button'
+          >
+            電子喜帖
           </a>
           <div className='flex gap-2 md:flex-row md:items-center'>
             <a
