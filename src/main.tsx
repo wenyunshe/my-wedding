@@ -6,7 +6,7 @@ import 'primeicons/primeicons.css'
 import App from './App.tsx'
 import HomePage from './pages/HomePage.tsx'
 import OurStoryPage from './pages/OurStoryPage.tsx'
-import GalleryPage from './pages/GalleryPage.tsx'
+import WeddingInvitationPage from './pages/WeddingInvitationPage.tsx'
 import RsvpPage from './pages/RsvpPage.tsx'
 
 createRoot(document.getElementById('root')!).render(
@@ -16,7 +16,10 @@ createRoot(document.getElementById('root')!).render(
         <Route element={<App />}>
           <Route path='/' element={<HomePage />} />
           <Route path='/our-story' element={<OurStoryPage />} />
-          <Route path='/gallery' element={<GalleryPage />} />
+          <Route
+            path='/wedding-invitation'
+            element={<WeddingInvitationPage />}
+          />
           <Route path='/rsvp' element={<RsvpPage />} />
         </Route>
       </Routes>

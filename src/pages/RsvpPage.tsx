@@ -118,7 +118,7 @@ const RsvpPage = () => {
 
   return (
     <div className='flex flex-col items-center justify-center sm:p-20 px-4 py-8'>
-      <h1 className='text-4xl font-bold mb-4 sm:mb-12'>RSVP</h1>
+      <h1 className='text-3xl sm:text-4xl font-bold mb-4 sm:mb-12'>RSVP</h1>
       <div className='max-w-lg mb-8 flex flex-col items-center'>
         <p className='text-center'>
           誠摯地邀請您參加我們的婚禮！
@@ -127,7 +127,7 @@ const RsvpPage = () => {
         </p>
         <Divider />
         <ul className='mb-8 max-w-lg text-center'>
-          <li className='mb-2'>時間：2026/3/28（六）12:30 PM（午宴）</li>
+          <li className='mb-2'>時間：2026/3/28（六）12:00 PM（午宴）</li>
           <li className='mb-2'>地點：高雄日航酒店 3F</li>
         </ul>
       </div>
