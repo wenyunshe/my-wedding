@@ -11,7 +11,6 @@ function App() {
         <Menubar
           model={[
             { label: 'Home', url: '/' },
-            { label: 'RSVP', url: '/rsvp' },
             { label: 'Wedding invitation', url: '/wedding-invitation' },
             {
               label: 'Pre-wedding photos',

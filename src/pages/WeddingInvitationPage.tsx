@@ -1,3 +1,4 @@
+import { motion } from 'motion/react'
 import InvitationContentImage from '../assets/invitation-content.png'
 import InvitationCoverImage from '../assets/invitation-cover.png'
 import InvitationCoverInsideImage from '../assets/invitation-cover-under.png'
@@ -8,7 +9,11 @@ import TrafficGuideThumbnailImage2 from '../assets/traffic-guide-2-thumbnail.jpg
 import { FlipUpCard } from '../components/FlipUpCard'
 import { useRef, useState } from 'react'
 import { Galleria } from 'primereact/galleria'
-import { Button } from 'primereact/button'
+
+const fadeInProps = {
+  initial: { opacity: 0, y: 20 },
+  animate: { opacity: 1, y: 0 },
+}
 
 const WeddingInvitationPage = () => {
   const [activeIndex, setActiveIndex] = useState(0)
@@ -71,22 +76,38 @@ const WeddingInvitationPage = () => {
 
   return (
     <div className='flex flex-col items-center h-screen p-12'>
-      <h1 className='text-2xl sm:text-4xl font-bold mt-14 mb-18'>
+      <motion.h1
+        className='text-2xl sm:text-4xl font-bold mt-14 mb-18'
+        {...fadeInProps}
+        transition={{ duration: 0.5 }}
+      >
         Wedding Invitation
-      </h1>
-      <div>
+      </motion.h1>
+      <motion.div {...fadeInProps} transition={{ duration: 0.5, delay: 0.2 }}>
         <FlipUpCard
           coverSrc={InvitationCoverImage}
           insideSrc={InvitationContentImage}
           coverInsideSrc={InvitationCoverInsideImage}
         />
-      </div>
-      <small className='text-sm mt-12 text-center text-gray-500'>
-        * 點擊卡片翻開 / 關起
-      </small>
-      <h3 className='text-xl font-bold mt-12 mb-4'>交通資訊</h3>
+        <div className='flex justify-center'>
+          <small className='text-sm mt-4 text-gray-500'>
+            * 點擊卡片翻開 / 關起
+          </small>
+        </div>
+      </motion.div>
+      <motion.h3
+        {...fadeInProps}
+        transition={{ duration: 0.5, delay: 0.4 }}
+        className='text-xl font-bold mt-12 mb-4'
+      >
+        交通資訊
+      </motion.h3>
       <div>
-        <div className='card flex justify-content-center'>
+        <motion.div
+          className='card flex justify-content-center'
+          {...fadeInProps}
+          transition={{ duration: 0.5, delay: 0.6 }}
+        >
           <Galleria
             ref={galleria}
             value={trafficGuideImages}
@@ -123,19 +144,22 @@ const WeddingInvitationPage = () => {
               )
             })}
           </div>
-        </div>
+        </motion.div>
       </div>
-      <div className='pb-20'>
-        <div className='flex justify-center m-8'>
-          <Button
-            label='Google 地圖'
-            link
-            onClick={() =>
-              window.open('https://maps.app.goo.gl/8FaDkTfGdPq33HBQ8', '_blank')
-            }
-          />
-        </div>
-        <ul className='text-left max-w-xl mx-auto gap-4 flex flex-col'>
+      <div className='pb-20 px-4 flex flex-col items-center gap-8'>
+        <motion.iframe
+          className='lg:size-120 md:size-100 size-80 rounded-lg shadow-lg border-0 mt-8'
+          src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.1765795558445!2d120.30279087564934!3d22.609880331602284!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e030004dc9165%3A0xf1c8ab02b634069b!2z6auY6ZuE5pel6Iiq6YWS5bqXIEhvdGVsIE5pa2tvIEthb2hzaXVuZw!5e0!3m2!1szh-TW!2stw!4v1751132070968!5m2!1szh-TW!2stw'
+          loading='lazy'
+          referrerPolicy='no-referrer-when-downgrade'
+          {...fadeInProps}
+          transition={{ duration: 0.5, delay: 0.8 }}
+        ></motion.iframe>
+        <motion.ul
+          className='text-left max-w-xl mx-auto gap-4 flex flex-col'
+          {...fadeInProps}
+          transition={{ duration: 0.5, delay: 1 }}
+        >
           <li>
             <div className='font-bold'>🚉 捷運</div>
             <div>三多商圈捷運站 2 號出口，步行約 5 分鐘</div>
@@ -151,7 +175,7 @@ const WeddingInvitationPage = () => {
               左轉進入林森四路
             </div>
           </li>
-        </ul>
+        </motion.ul>
       </div>
     </div>
   )
