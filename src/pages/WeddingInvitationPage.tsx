@@ -8,22 +8,23 @@ import TrafficGuideThumbnailImage2 from '../assets/traffic-guide-2-thumbnail.jpg
 import { FlipUpCard } from '../components/FlipUpCard'
 import { useRef, useState } from 'react'
 import { Galleria } from 'primereact/galleria'
+import { Button } from 'primereact/button'
 
 const WeddingInvitationPage = () => {
   const [activeIndex, setActiveIndex] = useState(0)
   const galleria = useRef<Galleria>(null)
   const trafficGuideImages = [
     {
-      itemImageSrc: TrafficGuideImage1,
-      alt: '交通指南 1',
-      thumbnailAlt: '交通指南 1 縮圖',
-      thumbnailImageSrc: TrafficGuideThumbnailImage1,
-    },
-    {
       itemImageSrc: TrafficGuideImage2,
       alt: '交通指南 2',
       thumbnailAlt: '交通指南 2 縮圖',
       thumbnailImageSrc: TrafficGuideThumbnailImage2,
+    },
+    {
+      itemImageSrc: TrafficGuideImage1,
+      alt: '交通指南 1',
+      thumbnailAlt: '交通指南 1 縮圖',
+      thumbnailImageSrc: TrafficGuideThumbnailImage1,
     },
   ]
 
@@ -123,6 +124,34 @@ const WeddingInvitationPage = () => {
             })}
           </div>
         </div>
+      </div>
+      <div className='pb-20'>
+        <div className='flex justify-center m-8'>
+          <Button
+            label='Google 地圖'
+            link
+            onClick={() =>
+              window.open('https://maps.app.goo.gl/8FaDkTfGdPq33HBQ8', '_blank')
+            }
+          />
+        </div>
+        <ul className='text-left max-w-xl mx-auto gap-4 flex flex-col'>
+          <li>
+            <div className='font-bold'>🚉 捷運</div>
+            <div>三多商圈捷運站 2 號出口，步行約 5 分鐘</div>
+          </li>
+          <li>
+            <div className='font-bold'>🚌 公車</div>
+            <div>中山二路站-12、12延駛飛機路、9117、9117A、綠1</div>
+          </li>
+          <li>
+            <div className='font-bold'>🚗 開車</div>
+            <div>
+              國道一號中山四路出口（高雄）下交流道 → 沿中山四路直行 →
+              左轉進入林森四路
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
   )
