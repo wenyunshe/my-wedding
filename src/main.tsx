@@ -8,6 +8,7 @@ import HomePage from './pages/HomePage.tsx'
 import OurStoryPage from './pages/OurStoryPage.tsx'
 import WeddingInvitationPage from './pages/WeddingInvitationPage.tsx'
 import RsvpPage from './pages/RsvpPage.tsx'
+import TheWeddingPage from './pages/TheWeddingPage.tsx'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
@@ -16,6 +17,7 @@ createRoot(document.getElementById('root')!).render(
         <Route element={<App />}>
           <Route path='/' element={<HomePage />} />
           <Route path='/our-story' element={<OurStoryPage />} />
+          <Route path='/the-wedding' element={<TheWeddingPage />} />
           <Route
             path='/wedding-invitation'
             element={<WeddingInvitationPage />}
@@ -24,5 +26,5 @@ createRoot(document.getElementById('root')!).render(
         </Route>
       </Routes>
     </BrowserRouter>
-  </StrictMode>
+  </StrictMode>,
 )

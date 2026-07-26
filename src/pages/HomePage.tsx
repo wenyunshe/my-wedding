@@ -30,43 +30,17 @@ const HomePage = () => {
           {...fadeInProps}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
-          You are invited to the wedding!
+          Thanks for comming to our wedding!
         </motion.h4>
-        <motion.h3
-          className='text-ms/8 md:text-xl/9'
-          {...fadeInProps}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
-          <span className='text-2xl/10 md:text-3xl/12'>2026/3/28（六）</span>
-          <ul className='my-2'>
-            <li>11:30 迎賓雞尾酒</li>
-            <li>12:00 入席</li>
-            <li>12:30 準時開席</li>
-          </ul>
-          <span className='pi pi-at' />
-          &nbsp;高雄日航酒店 3F
-        </motion.h3>
         <motion.div
           className='flex gap-2 md:flex-row flex-wrap md:items-center justify-center'
           {...fadeInProps}
           transition={{ duration: 0.5, delay: 0.4 }}
         >
-          <a
-            href='/wedding-invitation'
-            rel='noopener noreferrer'
-            className='p-button'
-          >
-            電子喜帖
+          <a href='/the-wedding' rel='noopener noreferrer' className='p-button'>
+            回顧婚禮
           </a>
           <div className='flex gap-2 md:flex-row md:items-center'>
-            <a
-              href={import.meta.env.VITE_CALENDER_EVENT_URL}
-              target='_blank'
-              rel='noopener noreferrer'
-              className='p-button p-button-outlined'
-            >
-              加入 Google 行事曆
-            </a>
             <a
               href='https://lin.ee/tBAIooS'
               target='_blank'
@@ -77,14 +51,66 @@ const HomePage = () => {
             </a>
           </div>
         </motion.div>
-        <motion.iframe
-          className='lg:size-120 md:size-100 size-80 rounded-lg shadow-lg border-0'
-          src='https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3683.1765795558445!2d120.30279087564934!3d22.609880331602284!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346e030004dc9165%3A0xf1c8ab02b634069b!2z6auY6ZuE5pel6Iiq6YWS5bqXIEhvdGVsIE5pa2tvIEthb2hzaXVuZw!5e0!3m2!1szh-TW!2stw!4v1751132070968!5m2!1szh-TW!2stw'
-          loading='lazy'
-          referrerPolicy='no-referrer-when-downgrade'
-          {...fadeInProps}
-          transition={{ duration: 0.5, delay: 0.6 }}
-        ></motion.iframe>
+
+        <motion.div {...fadeInProps} transition={{ duration: 0.5, delay: 0.6 }}>
+          <ul className='list-none list-inside'>
+            <li>
+              Host{' '}
+              <a
+                href='https://www.instagram.com/wedding_mk/'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='underline hover:text-gray-900'
+              >
+                @wedding_mk
+              </a>
+            </li>
+            <li>
+              Wedding photographer{' '}
+              <a
+                href='https://www.instagram.com/andykuophoto/'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='underline hover:text-gray-900'
+              >
+                @andykuophoto
+              </a>
+            </li>
+            <li>
+              Pre-wedding photographer{' '}
+              <a
+                href='https://www.instagram.com/dahaomoment/'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='underline hover:text-gray-900'
+              >
+                大好良晨攝影工作室
+              </a>
+            </li>
+            <li>
+              Wedding decoration{' '}
+              <a
+                href='https://www.instagram.com/asideflower/'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='underline hover:text-gray-900'
+              >
+                Aside Flower 花森禾室
+              </a>
+            </li>
+            <li>
+              Makeup{' '}
+              <a
+                href='https://www.instagram.com/bonnietsai1390makeup/'
+                target='_blank'
+                rel='noopener noreferrer'
+                className='underline hover:text-gray-900'
+              >
+                蔡邦妮 Bonnie Tsai
+              </a>
+            </li>
+          </ul>
+        </motion.div>
       </div>
     </div>
   )

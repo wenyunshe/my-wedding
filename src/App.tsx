@@ -12,6 +12,7 @@ function App() {
           model={[
             { label: 'Home', url: '/' },
             { label: 'Wedding invitation', url: '/wedding-invitation' },
+            { label: 'The wedding', url: '/the-wedding' },
             {
               label: 'Pre-wedding photos',
               target: '_blank',
